@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { protect } = require("../middlewares/authMiddleware");
-
+const { checkPermissions } = require("../middlewares/rbacMiddleware");
 const {
   getGoals,
   getGoal,
@@ -10,14 +10,16 @@ const {
   deleteGoal,
 } = require("../controllers/goalController");
 
-router.post("/create", protect, setGoal);
-
-router.get("/", protect, getGoals);
+// Routes
+router
+  .route("/")
+  .post(protect, checkPermissions(["create"]), setGoal)
+  .get(protect, checkPermissions(["read"]), getGoals);
 
 router
   .route("/:id")
-  .get(protect, getGoal)
-  .put(protect, updateGoal)
-  .delete(protect, deleteGoal);
+  .get(protect, checkPermissions(["read"]), getGoal)
+  .put(protect, checkPermissions(["update"]), updateGoal)
+  .delete(protect, checkPermissions(["delete"]), deleteGoal);
 
 module.exports = router;

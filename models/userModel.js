@@ -20,6 +20,13 @@ const userSchema = mongoose.Schema(
       required: [true, "Password is required"],
       select: false,
     },
+    role: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
+    },
+    profilePicture: {
+      type: String,
+    },
   },
   {
     timestamps: true,

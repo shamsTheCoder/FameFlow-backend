@@ -4,85 +4,116 @@ const Goal = require("../models/goalModels");
 
 // get all goals
 const getGoals = asyncHandler(async (req, res) => {
-  const userId = req.user.id;
+  try {
+    const userId = req.user.id;
 
-  const goals = await Goal.find({ userId });
+    const goals = await Goal.find({ userId });
 
-  res.status(HTTP_STATUS_CODES.OK).json({
-    goals,
-  });
+    res.status(HTTP_STATUS_CODES.OK).json({
+      goals,
+    });
+  } catch (error) {
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
+  }
 });
 
 // get single goal by id
 const getGoal = asyncHandler(async (req, res) => {
-  const userId = req.user.id;
-  const goal = await Goal.findOne({ userId, _id: req.params.id });
+  try {
+    const userId = req.user.id;
+    const goal = await Goal.findOne({ userId, _id: req.params.id });
 
-  if (!goal) {
-    res.status(HTTP_STATUS_CODES.NOT_FOUND);
-    throw new Error("Goal not found");
+    if (!goal) {
+      res.status(HTTP_STATUS_CODES.NOT_FOUND);
+      throw new Error("Goal not found");
+    }
+
+    res.status(HTTP_STATUS_CODES.OK).json({ goal });
+  } catch (error) {
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
   }
-
-  res.status(HTTP_STATUS_CODES.OK).json({ goal });
 });
 
 // create goal
 const setGoal = asyncHandler(async (req, res) => {
-  if (!req.body.text) {
-    res.status(HTTP_STATUS_CODES.BAD_REQUEST);
-    throw new Error("Text field is required");
+  try {
+    if (!req.body.text) {
+      res.status(HTTP_STATUS_CODES.BAD_REQUEST);
+      throw new Error("Text field is required");
+    }
+
+    const goal = await Goal.create({
+      userId: req.user.id,
+      text: req.body.text,
+    });
+
+    res.status(HTTP_STATUS_CODES.CREATED).json({
+      message: "Goal created successfully",
+      goal,
+    });
+  } catch (error) {
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
   }
-
-  const goal = await Goal.create({
-    userId: req.user.id,
-    text: req.body.text,
-  });
-
-  res.status(HTTP_STATUS_CODES.OK).json({
-    message: "Goal created successfully",
-    goal,
-  });
 });
 
 // update existing goal
 const updateGoal = asyncHandler(async (req, res) => {
-  const goalId = req.params.id;
-  const userId = req.user.id;
+  try {
+    const goalId = req.params.id;
+    const userId = req.user.id;
 
-  const goal = await Goal.findOne({ userId, _id: goalId });
+    const goal = await Goal.findOne({ userId, _id: goalId });
 
-  if (!goal) {
-    res.status(HTTP_STATUS_CODES.NOT_FOUND);
-    throw new Error("Goal not found");
+    if (!goal) {
+      return res
+        .status(HTTP_STATUS_CODES.NOT_FOUND)
+        .json({ error: "Goal not found" });
+    }
+
+    const updatedGoal = await Goal.findByIdAndUpdate(goalId, req.body, {
+      new: true,
+    });
+
+    return res.status(HTTP_STATUS_CODES.OK).json({
+      message: "Goal updated successfully",
+      updatedGoal,
+    });
+  } catch (error) {
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
   }
-
-  const updatedGoal = await Goal.findByIdAndUpdate(goalId, req.body, {
-    new: true,
-  });
-
-  res.status(HTTP_STATUS_CODES.OK).json({
-    message: "Goal updated successfully",
-    updatedGoal,
-  });
 });
 
 // delete existing
-const deleteGoal = asyncHandler(async (req, res) => {
-  const userId = req.user.id;
+const deleteGoal = asyncHandler(async (req, res, next) => {
+  try {
+    const userId = req.user.id;
 
-  const deletedGoal = await Goal.findOneAndDelete({
-    userId,
-    _id: req.params.id,
-  });
+    const deletedGoal = await Goal.findOneAndDelete({
+      userId,
+      _id: req.params.id,
+    });
 
-  if (!deletedGoal) {
-    res.status(HTTP_STATUS_CODES.NOT_FOUND);
-    throw new Error("Goal not found");
+    if (!deletedGoal) {
+      res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ error: "Goal not found" });
+      return;
+    }
+
+    res
+      .status(HTTP_STATUS_CODES.OK)
+      .json({ message: "Goal deleted successfully" });
+  } catch (error) {
+    res
+      .status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
   }
-
-  res
-    .status(200)
-    .json({ message: "Goal deleted successfully", deletedId: req.params.id });
 });
 
 module.exports = {

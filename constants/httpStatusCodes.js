@@ -72,6 +72,7 @@ const HTTP_STATUS_CODES = {
   LOOP_DETECTED: 508,
   NOT_EXTENDED: 510,
   NETWORK_AUTHENTICATION_REQUIRED: 511,
+  RECORD_EXISTS: 11000,
 };
 
 // Export the constants for use in other files
