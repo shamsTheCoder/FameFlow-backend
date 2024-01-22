@@ -15,6 +15,22 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       validate: [validator.isEmail, "Invalid email format"],
     },
+    mobile: {
+      type: String,
+      validate: {
+        validator: (value) => {
+          return value.isMobilePhone(value, "en-IN") && value.length === 10;
+        },
+        message: "Invalid mobile number",
+      },
+    },
+    dateOfBirth: {
+      type: Date,
+      required: [true, "Date of birth is required"],
+      validate: {
+        validator: {},
+      },
+    },
     password: {
       type: String,
       required: [true, "Password is required"],
@@ -26,6 +42,11 @@ const userSchema = mongoose.Schema(
     },
     profilePicture: {
       type: String,
+    },
+    status: {
+      type: Boolean,
+      required: [true, "Status is required"],
+      default: false,
     },
   },
   {

@@ -31,7 +31,7 @@ const registerUser = asyncHandler(async (req, res, next) => {
 
     const uploadedProfilePicUrl = `${req.protocol}://${req.get(
       "host"
-    )}/uploads/profile_picture/${profilePicture.filename}`;
+    )}/uploads/images/${profilePicture.filename}`;
 
     if (!name || !email || !password) {
       res.status(HTTP_STATUS_CODES.BAD_REQUEST);
