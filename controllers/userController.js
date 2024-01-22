@@ -20,7 +20,9 @@ const getUsers = asyncHandler(async (req, res) => {
 // create or register new user
 const registerUser = asyncHandler(async (req, res, next) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, mobile, dateOfBirth, password, role, status } =
+      req.body;
+
     const profilePicture = req.file;
 
     // Check if the file is a valid image
@@ -48,8 +50,11 @@ const registerUser = asyncHandler(async (req, res, next) => {
     const user = await User.create({
       name,
       email,
+      mobile,
+      dateOfBirth,
       password,
       role,
+      status,
       profilePicture: uploadedProfilePicUrl,
     });
 
@@ -62,7 +67,10 @@ const registerUser = asyncHandler(async (req, res, next) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      mobile: user.mobile,
+      dateOfBirth: user.dateOfBirth,
       role: user.role,
+      status: user.status,
       permissions: user.permissions,
       profilePicture: user.profilePicture,
       token: generateToken(user._id),

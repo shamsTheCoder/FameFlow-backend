@@ -17,19 +17,12 @@ const userSchema = mongoose.Schema(
     },
     mobile: {
       type: String,
-      validate: {
-        validator: (value) => {
-          return value.isMobilePhone(value, "en-IN") && value.length === 10;
-        },
-        message: "Invalid mobile number",
-      },
+      unique: true,
+      required: [true, "Mobile number is required"],
     },
     dateOfBirth: {
       type: Date,
       required: [true, "Date of birth is required"],
-      validate: {
-        validator: {},
-      },
     },
     password: {
       type: String,
@@ -40,13 +33,15 @@ const userSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role",
     },
-    profilePicture: {
-      type: String,
-    },
     status: {
       type: Boolean,
-      required: [true, "Status is required"],
       default: false,
+      set: function (value) {
+        return value === true || value === "true";
+      },
+    },
+    profilePicture: {
+      type: String,
     },
   },
   {
