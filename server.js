@@ -2,22 +2,19 @@ const express = require("express");
 require("dotenv").config();
 const { errorHandler } = require("./middlewares/errorMiddleware");
 const connectDB = require("./configs/db");
+const setupRoutes = require("./routes/routeSetup");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// middleware
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// routes setup
-app.use("/api", require("./routes/authRoutes"));
-app.use("/api/goals", require("./routes/goalRoutes"));
-app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/roles", require("./routes/roleRoutes"));
-app.use("/api/permissions", require("./routes/permissionRoutes"));
+// Routes setup
+setupRoutes(app);
 
-// error handler middleware
+// Error handler middleware
 app.use(errorHandler);
 
 // DB connection

@@ -6,7 +6,7 @@ const {
   createPermission,
   updatePermission,
   deletePermission,
-} = require("../controllers/permissionController");
+} = require("../../controllers/auth/permissionController");
 
 router.get("/", getPermissions);
 router.get("/:id", getPermission);

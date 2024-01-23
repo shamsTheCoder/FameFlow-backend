@@ -1,8 +1,8 @@
 const asyncHandler = require("express-async-handler");
-const HTTP_STATUS_CODES = require("../constants/httpStatusCodes");
+const HTTP_STATUS_CODES = require("../../constants/httpStatusCodes");
 const bcrypt = require("bcrypt");
-const { generateToken, addToBlackList } = require("../utils/jwtUtils");
-const User = require("../models/userModel");
+const { generateToken, addToBlackList } = require("../../utils/jwtUtils");
+const User = require("../../models/UserModel");
 
 // Login user
 const loginUser = asyncHandler(async (req, res) => {

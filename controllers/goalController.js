@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const HTTP_STATUS_CODES = require("../constants/httpStatusCodes");
-const Goal = require("../models/goalModels");
+const Goal = require("../models/GoalModel");
 
 // get all goals
 const getGoals = asyncHandler(async (req, res) => {

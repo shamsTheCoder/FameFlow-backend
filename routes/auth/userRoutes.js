@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { protect } = require("../middlewares/authMiddleware");
-const upload = require("../middlewares/uploadMiddleware");
+const { protect } = require("../../middlewares/authMiddleware");
+const upload = require("../../middlewares/uploadMiddleware");
 
 const {
   registerUser,
   updateUser,
   deleteUser,
   getUsers,
-} = require("../controllers/userController");
+} = require("../../controllers/auth/userController");
 
 // Open route without authentication
 router.post("/register", upload.single("profilePicture"), registerUser);

@@ -1,5 +1,5 @@
-const HTTP_STATUS_CODES = require("../constants/httpStatusCodes");
-const Role = require("../models/roleModel");
+const HTTP_STATUS_CODES = require("../../constants/httpStatusCodes");
+const Role = require("../../models/roleModel");
 const asyncHandler = require("express-async-handler");
 
 // get all roles

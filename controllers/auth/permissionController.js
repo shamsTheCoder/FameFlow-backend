@@ -1,5 +1,5 @@
-const HTTP_STATUS_CODES = require("../constants/httpStatusCodes");
-const Permission = require("../models/permissionModel");
+const HTTP_STATUS_CODES = require("../../constants/httpStatusCodes");
+const Permission = require("../../models/permissionModel");
 const asyncHandler = require("express-async-handler");
 
 // get all permissions

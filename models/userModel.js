@@ -20,10 +20,6 @@ const userSchema = mongoose.Schema(
       unique: true,
       required: [true, "Mobile number is required"],
     },
-    dateOfBirth: {
-      type: Date,
-      required: [true, "Date of birth is required"],
-    },
     password: {
       type: String,
       required: [true, "Password is required"],
@@ -39,9 +35,6 @@ const userSchema = mongoose.Schema(
       set: function (value) {
         return value === true || value === "true";
       },
-    },
-    profilePicture: {
-      type: String,
     },
   },
   {
@@ -64,4 +57,6 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-module.exports = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;

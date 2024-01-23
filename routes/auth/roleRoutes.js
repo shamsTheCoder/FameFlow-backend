@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { protect } = require("../middlewares/authMiddleware");
+const { protect } = require("../../middlewares/authMiddleware");
 
 const {
   getRoles,
@@ -8,7 +8,7 @@ const {
   createRole,
   updateRole,
   deleteRole,
-} = require("../controllers/roleController");
+} = require("../../controllers/auth/roleController");
 
 router.route("/").post(protect, createRole).get(protect, getRoles);
 

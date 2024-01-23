@@ -1,9 +1,10 @@
-const HTTP_STATUS_CODES = require("../constants/httpStatusCodes");
-const User = require("../models/userModel");
-const asyncHandler = require("express-async-handler");
 require("dotenv").config();
-const { generateToken } = require("../utils/jwtUtils");
-const ROLES = require("../constants/userRoles");
+
+const HTTP_STATUS_CODES = require("../../constants/httpStatusCodes");
+const asyncHandler = require("express-async-handler");
+const { generateToken } = require("../../utils/jwtUtils");
+const ROLES = require("../../constants/userRoles");
+const User = require("../../models/UserModel");
 
 // get all users
 const getUsers = asyncHandler(async (req, res) => {
@@ -20,8 +21,7 @@ const getUsers = asyncHandler(async (req, res) => {
 // create or register new user
 const registerUser = asyncHandler(async (req, res, next) => {
   try {
-    const { name, email, mobile, dateOfBirth, password, role, status } =
-      req.body;
+    const { name, email, mobile, password, role, status } = req.body;
 
     const profilePicture = req.file;
 
@@ -51,7 +51,6 @@ const registerUser = asyncHandler(async (req, res, next) => {
       name,
       email,
       mobile,
-      dateOfBirth,
       password,
       role,
       status,
