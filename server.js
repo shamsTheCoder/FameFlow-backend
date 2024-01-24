@@ -7,6 +7,12 @@ const setupRoutes = require("./routes/routeSetup");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Set EJS as the view engine
+app.use(express.static("public"));
+
+app.set("view engine", "ejs");
+app.set("views", "./views");
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
