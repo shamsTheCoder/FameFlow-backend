@@ -1,7 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const { errorHandler } = require("./middlewares/errorMiddleware");
-const connectDB = require("./configs/db");
+const connectDB = require("./configs/databaseConfig");
 const setupRoutes = require("./routes/routeSetup");
 
 const app = express();

@@ -20,11 +20,6 @@ const setupRoutes = (app) => {
 
   // Permissions Routes
   app.use("/api/permissions", require("./auth/permissionRoutes"));
-
-  // Render home page
-  app.get("/", (req, res) => {
-    res.render("index");
-  });
 };
 
 module.exports = setupRoutes;

@@ -1,4 +1,4 @@
-const logger = require("../configs/logger");
+const logger = require("../configs/loggerConfig");
 const HTTP_STATUS_CODES = require("../constants/httpStatusCodes");
 
 const errorHandler = (err, req, res, next) => {
