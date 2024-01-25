@@ -118,8 +118,8 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.status(HTTP_STATUS_CODES.OK).json({ message: "Logged out successfully" });
 });
 
-// get logged-in user info
-const getMe = asyncHandler(async (req, res) => {
+// get logged-in user info/profile
+const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id).populate("role");
 
   res.status(HTTP_STATUS_CODES.OK).json({ user });
@@ -135,6 +135,6 @@ module.exports = {
   registerUser,
   loginUser,
   logoutUser,
-  getMe,
+  getUserProfile,
   resetPassword,
 };
