@@ -1,5 +1,5 @@
 const HTTP_STATUS_CODES = require("../constants/httpStatusCodes");
-const User = require("../models/UserModel");
+const User = require("../models/userModel");
 const Permission = require("../models/permissionModel");
 
 const checkPermissions = (requiredPermissions) => {

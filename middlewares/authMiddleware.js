@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/UserModel");
+const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
 const HTTP_STATUS_CODES = require("../constants/httpStatusCodes");
 const { isTokenBlackListed } = require("../utils/jwtUtils");

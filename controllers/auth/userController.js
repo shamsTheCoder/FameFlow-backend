@@ -4,7 +4,7 @@ const HTTP_STATUS_CODES = require("../../constants/httpStatusCodes");
 const asyncHandler = require("express-async-handler");
 const { generateToken } = require("../../utils/jwtUtils");
 const ROLES = require("../../constants/userRoles");
-const User = require("../../models/UserModel");
+const User = require("../../models/userModel");
 
 // get all users
 const getUsers = asyncHandler(async (req, res) => {
